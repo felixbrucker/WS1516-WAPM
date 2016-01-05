@@ -1,0 +1,472 @@
+\documentclass[twoside,12pt]{scrartcl}
+
+%Encoding und Umlaute
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+%Sprache
+\usepackage[ngerman]{babel}
+
+%Seitenränder
+\usepackage{geometry}
+\geometry{a4paper,left=4cm,right=25mm, top=25mm, bottom=25mm}
+
+%Zeilenabstand
+\usepackage{setspace}
+
+%Matheumgebung
+\usepackage{amsmath}
+
+%Bilder
+\usepackage{graphicx}
+
+%Aufzählungen
+\usepackage{enumitem}
+
+%Literaturverzeichnis
+\usepackage{url}
+\usepackage[numbers,square,compress,merge,sort]{natbib}
+
+
+%Textumflossene Bilder und Unterschriften
+\usepackage{subcaption}
+
+% Tabellen
+\usepackage{multirow}
+\usepackage[usestackEOL]{stackengine}
+\usepackage{tabularx}
+\usepackage[flushleft]{threeparttable}
+
+%Farben
+\usepackage[dvipsnames,svgnames]{xcolor}
+
+%Kopf- und Fußzeilen
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+\usepackage{scrpage2}
+
+
+%%Setzt Schrift auf helvetica
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+
+%Quellcode
+\usepackage{listings}
+
+%%%%%%%%%%%%%%%%%%%% Quelltext Element - Style-File %%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[varqu]{zi4}
+\definecolor{eclipse-red}{RGB}{127,0,85}
+\definecolor{eclipse-blue}{RGB}{0,0,192} %for fields
+\definecolor{eclipse-strings}{RGB}{42,0,255}
+\definecolor{eclipse-green}{RGB}{63,127,95}
+\definecolor{eclipse-lightblue}{RGB}{127,159,191} %for Javadoc Tags
+\definecolor{eclipse-gray}{RGB}{100,100,100} %for annotations
+\definecolor{eclipse-JavadocHTML}{RGB}{127,127,159} %for Javadoc HTML
+\definecolor{eclipse-JavadocLinks}{RGB}{63,63,191}
+\definecolor{eclipse-Javadoc}{RGB}{63,95,191}
+\lstdefinestyle{eclipse-java}{%
+	basicstyle=\ttfamily\small,%\fontfamily{zi4}\fontsize{10pt}{10pt}\selectfont,%
+	tabsize=4,%
+	breakautoindent=true,%
+	breaklines,%
+	postbreak=\space\space\space,%
+	breakindent=0pt,%
+	keywordstyle=\color{eclipse-red}\bfseries,%
+	stringstyle=\color{eclipse-strings},%
+	commentstyle=\color{eclipse-green},
+	showstringspaces=false,
+	morecomment=*[s][\color{eclipse-Javadoc}]{/**}{*/},
+	morecomment=*[l][commentstyle]{//},
+	language=Java,morekeywords={enum},
+	emph={field,field2},emphstyle={\color{eclipse-blue}},
+	emph=[2]{RED,GREEN,BLUE,staticField,inheritedField},emphstyle=[2]{\color{eclipse-blue}\itshape},
+	emph=[3]{staticMethod},emphstyle=[3]\itshape,
+	emph={[4]TASK},emphstyle={[4]\color{eclipse-lightblue}\bfseries},
+	alsoletter={@},
+	emph=[5]{@author,@deprecated},emphstyle=[5]{\color{eclipse-lightblue}\bfseries},
+	moredelim=[l][\color{eclipse-gray}]{@},
+	moredelim=*[s][\color{eclipse-Javadoc}]{/**}{*/},
+	moredelim=[s][\color{eclipse-JavadocLinks}]{@link}{*},
+	extendedchars=true,%
+	literate={Ö}{{\"O}}1 {Ä}{{\"A}}1 {Ü}{{\"U}}1 {ß}{{\ss}}1 {ü}{{\"u}}1
+	{ä}{{\"a}}1 {ö}{{\"o}}1}
+
+
+%Glossar, Abkürzungsverzeichnis, Symbolverzeichnis
+\usepackage[nonumberlist, acronym, toc]{glossaries}
+
+
+%Ein eigenes Symbolverzeichnis erstellen
+\newglossary[slg]{symbolslist}{syi}{syg}{List of symbols}
+
+%Den Punkt am Ende jeder Beschreibung deaktivieren
+\renewcommand*{\glspostdescription}{}
+
+%Glossar-Befehle anschalten
+\makeglossaries
+
+
+%Diese Befehle sortieren die Einträge in den
+%einzelnen Listen:
+%makeindex -s datei.ist -t datei.alg -o datei.acr datei.acn
+%makeindex -s datei.ist -t datei.glg -o datei.gls datei.glo
+%makeindex -s datei.ist -t datei.slg -o datei.syi datei.syg
+
+
+\newglossaryentry{netzteil}{name=Netzteil, description={Stromversorgung verschiedener Geräte}, plural=Netzteile}
+\newglossaryentry{botnetz}{name=Botnetz, description={Infrastruktur zur Durchführung netzbasierter Angriffe}}
+
+
+\newacronym{isp}{ISP}{Internet Service Provider}
+\newacronym{cep}{CEP}{Complex Event Processing}
+
+
+\newcommand*{\myglossaryindent}{0cm}
+
+\newglossarystyle{longwithindent}{%
+	\glossarystyle{long}%
+	\renewenvironment{theglossary}%
+	{\begin{longtable}[l]{@{\hspace{\myglossaryindent}}lp{\glsdescwidth}lp{\glspagelistwidth}@{}}}%
+		{\end{longtable}}%
+} 
+
+
+
+\newglossaryentry{symb:Pi}{
+	name=$\pi$,
+	description={Die Kreiszahl.},
+	sort=symbolpi, type=symbolslist
+}
+\newglossaryentry{symb:Phi}{
+	name=$\varphi$,
+	description={Ein beliebiger Winkel.},
+	sort=symbolphi, type=symbolslist
+}
+\newglossaryentry{symb:Lambda}{
+	name=$\lambda$,
+	description={If marginal value is exceeded, the message is classified as spam.},
+	sort=symbollambda, type=symbolslist
+}
+
+
+\usepackage{blindtext}
+\pagenumbering{arabic}
+\pagenumbering{Roman}
+
+
+\title{Ein Testdokument}
+\author{Jessica Steinberger}
+\date{\today}
+
+
+\begin{document}
+	
+	
+%	\fancyhead{} % clear all header fields
+%	\fancyhead[RO,LE]{\bfseries Mein erstes \LaTeX-Dokument}
+%	\fancyhead[LO,RE]{\leftmark}
+%	\fancyfoot{} % clear all footer fields
+%	\fancyfoot[LE,RO]{\thepage}
+%	\renewcommand{\headrulewidth}{0.4pt}
+%	\renewcommand{\footrulewidth}{0.4pt}
+	
+	\pagestyle{scrheadings}
+	\clearscrheadfoot
+	\automark[chapter]{section}
+	\ihead{\bfseries Mein erstes \LaTeX-Dokument}
+	\ohead{\leftmark}
+	\ifoot{\pagemark} 
+	\setheadsepline{1pt} 
+	\setfootsepline{1pt}
+	
+	
+	\maketitle
+	
+	%Inhaltsverzeichnis
+	\tableofcontents
+	
+	\newpage
+	
+	%Abkürzungsverzeichnis
+	\printglossary[type=\acronymtype,style=longwithindent]
+	\newpage
+	
+	%Symbolverzeichnis
+	\printglossary[type=symbolslist,style=long]
+	
+	\newpage
+	
+	
+	\section{Einleitung}
+	
+	% Zeilenabstand auf 1.5 setzten
+	\onehalfspacing
+	
+	
+	Hier kommt die Einleitung. Ihre Überschrift kommt
+	automatisch in das Inhaltsverzeichnis.
+	
+	\subsection{Formeln}
+		
+	Formeln sind etwas schwieriger, dennoch hier ein
+	einfaches Beispiel.  Zwei von Einsteins
+	berühmtesten Formeln lauten:
+	\begin{align}
+	E &= mc^2          \label{eq_einstein}                        \\
+	m &= \frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}
+	\end{align}
+	
+	
+	Gleichung \eqref{eq_einstein} zeigt, ...
+	
+	\begin{itemize}
+		\item Stufe 1
+		\begin{itemize}
+			\item Stufe 2
+			\begin{itemize}
+				\item Stufe 3
+				\item ebenfalls Stufe 3
+			\end{itemize}
+			\item ebenfalls Stufe 2
+		\end{itemize}
+		\item ebenfalls Stufe 1
+	\end{itemize}
+	
+		
+	\begin{enumerate}
+		\item Stufe 1
+		\begin{enumerate}
+			\item Stufe 2
+			\begin{enumerate}
+				\item Stufe 3
+				\item ebenfalls Stufe 3
+			\end{enumerate}
+			\item ebenfalls Stufe 2
+		\end{enumerate}
+		\item ebenfalls Stufe 1
+	\end{enumerate}
+	
+	
+	
+	\begin{enumerate}[label=\emph{\arabic*)}]
+		\item Stufe 1
+		\begin{enumerate}[label=\emph{\alph*)}]
+			\item Stufe 2
+			\begin{enumerate}[label=\emph{\roman*)}]
+				\item Stufe 3
+				\item ebenfalls Stufe 3
+			\end{enumerate}
+			\item ebenfalls Stufe 2
+		\end{enumerate}
+		\item ebenfalls Stufe 1
+	\end{enumerate}
+	\Blindtext
+\begin{figure}
+	\centering
+	\includegraphics[width=0.95\linewidth]{Grundkurs_Suedhang}
+	\caption{Paragliding an der Wasserkuppe}
+	\label{fig:Grundkurs_Suedhang}
+\end{figure}
+
+
+	
+\begin{figure}
+	\centering
+	\begin{subfigure}[t]{.3\linewidth}
+		\includegraphics[width=.95\linewidth]{F1}
+		\caption{Funk}
+		\label{fig:sub1}
+	\end{subfigure}%
+	\hfill
+	\begin{subfigure}[t]{.3\linewidth}
+		\includegraphics[width=.95\linewidth]{F2}
+		\caption{Start}
+		\label{fig:sub2}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{.3\linewidth}
+		\includegraphics[width=.95\linewidth]{F3}
+		\caption{Sonnenaufgang}
+		\label{fig:sub3}
+	\end{subfigure}%
+	\caption{Paragliding an der Wasserkuppe}
+	\label{fig:paragliding}
+\end{figure}
+	
+	\vspace{1cm}
+	
+	Abbildung \ref{fig:sub1} zeigt, ...
+	
+	
+	\vspace{1cm}
+	
+	\section{Kapitel}
+\Blindtext
+
+	
+Ein wenig Text\footnote{Mein erster Text in einer Fußzeile} und dann schlaue Einträge in unserem Glossar: \gls{netzteil}, \gls{botnetz}. Wenn wir den Plural ausgeben wollen, dann verwenden wir \glspl{netzteil}.
+
+Die Zusammenarbeit der \gls{isp} sollte verstärkt werden\footnote{Mein zweiter Text in einer Fußzeile}. Ein verteilter Austausch von Bedrohungsinformationen sollte mit Unterstützung von \gls{cep} durchgeführt werden.
+
+
+Manchmal benötigen wir zur Beschreibung von Sachverhalten verschiedene Symbole. Diese werden in dem Symbolverzeichnis notiert wie z.B. \gls{symb:Lambda}, \gls{symb:Phi} und \gls{symb:Pi}. 
+\vspace{0.5cm}
+
+Eine Studie von \citet{Hofstede2014} zeigt, dass....
+
+\begin{lstlisting}[language=Java, caption={Matrix},label=alg_euklid,style=eclipse-java,moreemph={[2]out}]
+public class Array {
+	
+	public static void main(String[] args) {
+		int [][] primes = {{2,3,5}, {7,11,13}};
+		
+		for (int i = 0; i < primes.length; i++) {
+			for (int j = 0; j < primes[i].length; j++) {
+				System.out.print(primes[i][j]+" ");
+			}
+			System.out.println();
+		}
+	}
+}
+\end{lstlisting}
+
+\subsection{Abschnitt}
+
+	\blindtext
+	
+	\vspace{1cm}
+	Der Algorithmus in Listing \ref{alg_euklid} zeigt, ...
+		\vspace{1cm}
+	
+	\begin{table}[!t]
+		\centering
+		\renewcommand{\arraystretch}{1.3}
+			\caption{Overview of exchange protocols and formats \cite{Steinberger2015}}
+			\label{table_exchangeprotocols}
+			\begin{tabular}{|l|c|c|c|}
+				\hline
+				\textbf{Protocol} &  \textbf{OSI layer} & \textbf{Format} & \textbf{Security} \\
+				\hline
+				CIDF & Transport  & CISL messages  & \addstackgap{\shortstack{symmetric \\ cryptography}} \\
+				\hline
+				RID & Application & IODEF & TLS \\
+				\hline
+				XEP-0268 & Application & IODEF & TLS \\
+				\hline
+				IDXP & Application & IDMEF & TLS\\
+				\hline
+				CLT & Transport & CEE &  \addstackgap{\shortstack{provided by syslog \\(RFC $5425$)}}\\
+				\hline
+				\multirow{4}{*}{SMTP} & \multirow{4}{*}{Application} & \multirow{4}{*}{ \addstackgap{\shortstack{CAIF \\ ARF \\ x-arf}}} & None\\
+				&  &  & S/MIME\\
+				&  & & Multipart/Signed \\
+				& & &  Multipart/Encrypted \\
+				\hline
+				syslog (RFC $3164$) & Transport & syslog (RFC $3164$) & none \\
+				\hline
+				syslog (RFC $5425$) & Transport & syslog (RFC $5424$) & TLS \\
+				\hline
+			\end{tabular}
+	\end{table}	
+	
+		\blindtext
+		\vspace{1cm}
+	
+	\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}|l|c|r|}
+		\hline
+		Links & Zentriert & Rechts \\ \hline
+		L & Z &R  \\\hline
+	\end{tabular*}
+	
+		\vspace{1cm}
+	\blindtext
+	\subsection{Abschnitt}
+	
+		\vspace{1cm}
+		
+		\begin{tabularx}{\textwidth}{@{\extracolsep{\fill}}|X|X|X|}
+			\hline
+			Links & Zentriert & Rechts \\ \hline
+			L & Z &R  \\\hline
+		\end{tabularx}
+	\vspace{1cm}
+	\blindtext
+	
+	\begin{table}[!t]
+		\centering
+		\resizebox{\textwidth}{!}{
+		\renewcommand{\arraystretch}{1.3}
+		\begin{threeparttable}
+			\caption{Evaluation summary of the exchange formats}
+			\label{table_summary}
+			\centering
+			\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}
+				\hline
+				\textbf{Criterion} &  \textbf{CIDF} & \textbf{IODEF} & \textbf{CAIF} & \textbf{IDMEF} &  \textbf{ARF} &  \textbf{CEE}&  \multicolumn{2}{c|}{\textbf{X-ARF}} & \multicolumn{2}{c|}{\textbf{Syslog}}\\
+				&&&&&&& v$0.1$ & v$0.2$ & RFC $3164$ & RFC $5425$\\
+				\hline
+				Interoperability & $-$& $-$ & $-$ & $-$ & $+$ & $+$ & $+$ & $+$ & $+$ & $+$\\
+				\hline
+				Extensibility & $+$ & $+$ & $+$ & $+$ & $+$ & $+$ & $+$ & $+$ & $+$ & $+$\\
+				\hline
+			\end{tabular}
+			\begin{tablenotes}
+				\small
+				\item Legend: high ($+$), medium ($0$) and low ($-$)
+			\end{tablenotes}
+		\end{threeparttable}}
+	\end{table}
+	
+	\vspace{1cm}
+	
+	Abbildung \ref{fig:Grundkurs_Suedhang} zeigt ...
+	
+	Tabelle \ref{table_summary} zeigt ...
+	
+	\section{Kapitel}
+	
+	Lorem ipsum dolor $x^2$ sit amet, consectetuer \(x^2\) adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. 
+	
+	\begin{align}
+	x^2
+	\end{align}	
+	
+	Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. 
+	
+	\begin{align*}
+	x^2
+	\end{align*}	
+	
+	Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, 
+	
+	
+	\Blindtext
+	
+	\listoffigures
+	
+	\blindtext
+	\subsection{Abschnitt}
+	
+	%Tabellenverzeichnis
+	\listoftables
+	
+	\blindtext
+	
+	\section{Kapitel}
+	\Blindtext
+	
+	%Quellcodeverzeichnis
+	\lstlistoflistings
+	
+	%Glossar
+	\printglossary[style=altlist,title=Glossar]
+	\newpage
+	
+	%Literaturverzeichnis & Style
+	\bibliographystyle{plainnat}			
+	\bibliography{literature} 
+	
+\end{document}
+
