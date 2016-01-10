@@ -258,6 +258,29 @@ TODO Figur 1 zeigt den Ablauf eines einkommenden Pakets.
 
 Fig 1
 
+\section{SDN Anwendungen}
+\begin{itemize}
+	\item Enterprise Netzwerke
+	Große Unternehmen haben sehr große Netzwerke die ein hohes Maß an Sicherheit verlangen. SDN können genutzt werden um Firewalls, Loadbalancer, NATs sowie Netzwerk ACLs zu ersetzen. Durch diese Umstellung fallen fast alle sogenannten „Middleboxes“ weg, was zu einer deutlichen Vereinfachung der Konfiguration sowie des Verwaltungsaufwandes führt.
+	\item Rechenzentren
+	Die Netzwerke in Rechenzentren sind oft überdimensioniert um einem hohen Peak an Anforderungen standzuhalten. Daraus resultiert, dass diese im Allgemeinen nicht alle Ressourcen ausnutzen. In solchen großen Rechenzentren spielt der Aspekt des Stromverbrauchs eine große Rolle, hier kann SDN helfen die Kosten zu reduzieren. Durch das Finden eines optimalen Netzwerkteils der für den aktuellen Bedarf ausreicht und das Ausschalten der nicht benötigten Geräte wird bis zu 60% an Energie gespart. Allerdings hat SDN auch Performanceeinbußen bei reinen high-performance Netzwerken, was durch das Ständige auslagern von Anfragen an den Controller zustande kommt. Im Gegenzug wurden weitere Frameworks vorgestellt, die einem solchen Verhalten, durch die Verlagerung der meisten Flows zurück in den Switch, entgegenwirken. Ein praktisches Beispiel für den Einsatz von OpenFlow verbundenen Rechenzentren wurde 2012 von Google beim Open Network Summit vorgestellt, hierbei liefen viele Links bei annährend 100% Auslastung.
+	\item Heim- und Kleinbetriebe
+	Gerade durch die niedrigen Kosten von Netzwerkgeräten haben viele kleine Firmen bereits ein relativ komplexes Netzwerk. Um nicht durch Malware verseucht zu werden spielt auch die Sicherheit eine große Rolle und eine Änderung der Konfiguration des Netzes sollte keine Ausfälle verursachen. Oft ist es auch nicht möglich in jedem Büro einen Netzwerkadministrator zu haben. Hier könnte ein SDN, durch remote verwalteten Switche und Verteiltes Monitoring zur Erkennung von Sicherheitsproblemen, helfen.
+\end{itemize}
+
+\section{Zukunft}
+\begin{itemize}
+	\item Controller und Switch
+	SDN haben Skalierungs-, Performance- und Sicherheitsherausforderungen, welche bereits durch Forschungsarbeiten aufgearbeitet und minimiert werden. Physikalisch dezentrale aber logisch zentrale Controller erweisen sich als wesentlich robuster und besser skalierbar als ein zentraler Controller, Beispiele solcher Controller sind Onix, Kando und HyperFlow.
+	\item Das Internet mit SDN
+	Die Natur eines zentralen Controllers widerspricht der dezentralen Struktur des Internets, allerdings ist eine logisch zentrale, aber physikalisch dezentrale Struktur der beteiligten „Autonomous Systems“ (AS) denkbar. Es gibt bereits ein paar Versuche dieser Idee die auf „Multi protocol label switching“ (MPLS) basieren und Aufgaben an Geräte innerhalb des Bereichs oder außerhalb des Bereichs weitergeben. Ein weiterer Ansatz nutzt NOX und OpenFlow  um BGP ähnliche Funktionalität für das Routing innerhalb eines AS nutzbar zu machen.
+	\item Virtualisierung
+	Clouddienstleister und Virtualisierungsanbieter haben hohe Anforderungen an ihre Netzwerkinfrastruktur, schließlich müssen neue VMs oder Container innerhalb kürzester Zeit bereitgestellt werden. Ebenfalls muss ein hoch skalierbares Netzwerk-backend vorhanden sein, dass sich dynamisch den Anforderungen anpasst. Hierfür gibt es bereits Lösungen wie zum Bespiel Floodlight welches in OpenStack genutzt werden kann, oder NOX für MirageOS. LIME, ein Design zum effizienten migrieren von Virtuellen Maschinen wurde ebenfalls vorgestellt.
+\end{itemize}
+
+\section{Zusammenfassung}
+
+
 \begin{figure}
 	\centering
 	\begin{subfigure}[t]{.3\linewidth}
@@ -288,16 +311,21 @@ Fig 1
 	
 	\vspace{1cm}
 	
-	\section{Kapitel}
-\Blindtext
-
 	
-Ein wenig Text\footnote{Mein erster Text in einer Fußzeile} und dann schlaue Einträge in unserem Glossar: \gls{netzteil}, \gls{botnetz}. Wenn wir den Plural ausgeben wollen, dann verwenden wir \glspl{netzteil}.
-
-Die Zusammenarbeit der \gls{isp} sollte verstärkt werden\footnote{Mein zweiter Text in einer Fußzeile}. Ein verteilter Austausch von Bedrohungsinformationen sollte mit Unterstützung von \gls{cep} durchgeführt werden.
-
-
-Manchmal benötigen wir zur Beschreibung von Sachverhalten verschiedene Symbole. Diese werden in dem Symbolverzeichnis notiert wie z.B. \gls{symb:Lambda}, \gls{symb:Phi} und \gls{symb:Pi}. 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 \vspace{0.5cm}
 
 Eine Studie von \citet{Hofstede2014} zeigt, dass....
