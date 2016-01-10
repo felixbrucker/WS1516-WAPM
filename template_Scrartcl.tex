@@ -8,6 +8,7 @@
 %Sprache
 \usepackage[ngerman]{babel}
 
+
 %Seitenränder
 \usepackage{geometry}
 \geometry{a4paper,left=4cm,right=25mm, top=25mm, bottom=25mm}
@@ -54,44 +55,6 @@
 
 %Quellcode
 \usepackage{listings}
-
-%%%%%%%%%%%%%%%%%%%% Quelltext Element - Style-File %%%%%%%%%%%%%%%%%%%%%%%
-\usepackage[varqu]{zi4}
-\definecolor{eclipse-red}{RGB}{127,0,85}
-\definecolor{eclipse-blue}{RGB}{0,0,192} %for fields
-\definecolor{eclipse-strings}{RGB}{42,0,255}
-\definecolor{eclipse-green}{RGB}{63,127,95}
-\definecolor{eclipse-lightblue}{RGB}{127,159,191} %for Javadoc Tags
-\definecolor{eclipse-gray}{RGB}{100,100,100} %for annotations
-\definecolor{eclipse-JavadocHTML}{RGB}{127,127,159} %for Javadoc HTML
-\definecolor{eclipse-JavadocLinks}{RGB}{63,63,191}
-\definecolor{eclipse-Javadoc}{RGB}{63,95,191}
-\lstdefinestyle{eclipse-java}{%
-	basicstyle=\ttfamily\small,%\fontfamily{zi4}\fontsize{10pt}{10pt}\selectfont,%
-	tabsize=4,%
-	breakautoindent=true,%
-	breaklines,%
-	postbreak=\space\space\space,%
-	breakindent=0pt,%
-	keywordstyle=\color{eclipse-red}\bfseries,%
-	stringstyle=\color{eclipse-strings},%
-	commentstyle=\color{eclipse-green},
-	showstringspaces=false,
-	morecomment=*[s][\color{eclipse-Javadoc}]{/**}{*/},
-	morecomment=*[l][commentstyle]{//},
-	language=Java,morekeywords={enum},
-	emph={field,field2},emphstyle={\color{eclipse-blue}},
-	emph=[2]{RED,GREEN,BLUE,staticField,inheritedField},emphstyle=[2]{\color{eclipse-blue}\itshape},
-	emph=[3]{staticMethod},emphstyle=[3]\itshape,
-	emph={[4]TASK},emphstyle={[4]\color{eclipse-lightblue}\bfseries},
-	alsoletter={@},
-	emph=[5]{@author,@deprecated},emphstyle=[5]{\color{eclipse-lightblue}\bfseries},
-	moredelim=[l][\color{eclipse-gray}]{@},
-	moredelim=*[s][\color{eclipse-Javadoc}]{/**}{*/},
-	moredelim=[s][\color{eclipse-JavadocLinks}]{@link}{*},
-	extendedchars=true,%
-	literate={Ö}{{\"O}}1 {Ä}{{\"A}}1 {Ü}{{\"U}}1 {ß}{{\ss}}1 {ü}{{\"u}}1
-	{ä}{{\"a}}1 {ö}{{\"o}}1}
 
 
 %Glossar, Abkürzungsverzeichnis, Symbolverzeichnis
@@ -156,8 +119,8 @@
 \pagenumbering{Roman}
 
 
-\title{Ein Testdokument}
-\author{Jessica Steinberger}
+\title{Software-defined-Networking}
+\author{Felix Brucker und Sebastian}
 \date{\today}
 
 
@@ -175,7 +138,7 @@
 	\pagestyle{scrheadings}
 	\clearscrheadfoot
 	\automark[chapter]{section}
-	\ihead{\bfseries Mein erstes \LaTeX-Dokument}
+	\ihead{\bfseries Proposal}
 	\ohead{\leftmark}
 	\ifoot{\pagemark} 
 	\setheadsepline{1pt} 
@@ -224,8 +187,7 @@ Dieses Arbeit ist wie folgt strukturiert: Teil 2 gibt eine historische Übersich
 	\end{itemize}
 	
 	\section{Architektur von SDN}
-	\begin{itemize}
-		\item Aktuelle SDN Architektur
+	\subsection{Aktuelle SDN Architektur}
 		\begin{itemize}
 			\item ForCES: Bei Forward and Control Element Separation (ForCES) wird die Control Plane in unmittelbarer Umgebung behandelt, aber nicht zwingend auf dem Gerät selbst. Diese wird auch Control Element (CE) genannt, das Element zum Weiterleiten der Daten wird als Forwarding Element (FE) bezeichnet. Der Logical Function Block (LFB) ist eine Kontrolleinheit im FE die vom CE über das ForCES Protokoll konfiguriert wird.
 			\item OpenFlow: Im Gegensatz dazu wird bei OpenFlow die Control Plan ganz vom Gerät entfernt und zentral auf einem weiteren Computer ausgeführt. Die Kommunikation von Gerät und Controller läuft über das OpenFlow Protokoll. Das Gerät besitzt eine sogenannten Flow Table (FT) in der die folgenden Felder existieren: 
@@ -237,36 +199,33 @@ Dieses Arbeit ist wie folgt strukturiert: Teil 2 gibt eine historische Übersich
 Beim Eintreffen eines Paketes am Gerät wird zunächst in der FT nach einem Treffer gesucht, ähnlich wie bei einer Routingtabelle, und die entsprechenden Aktionen die im „set of instructions“ Feld der Tabelle stehen werden auf das Paket angewendet.
 TODO Figur 1 zeigt den Ablauf eines einkommenden Pakets.
 		\end{itemize}
-		\item Controller
-		\begin{itemize}
-			\item Das größte Bedenken bei ausgelagerten Controllern ist, dass die Performance und Skalierbarkeit darunter leidet. Aktuelle Tests mit den OpenFlow Controllern zeigen, dass diese durchaus bei großen Netzwerken mit mindestens 50000 neuen Flow-Requests pro Sekunde zurechtkommen. Es gibt bereits hoch-skalierbare Controller (NOX-MT) [1] die acht Kerne nutzen und so 1,6 Millionen Flow-Requests pro Sekunde bei sehr geringer Latenz verarbeiten können. Es können weiterhin mehrere Conbtroller genutzt werden, um zum einen die Performance, als auch die Ausfallsicherheit, was bei einem zentralen System von großer Bedeutung ist, zu verbessern. Es gibt auch dezentralisierte Controller, wie zum Beispiel Onix und HyperFlow, dort werden logisch zentrale Controller aus physikalisch dezentralen Controllern erstellt. Ebenfalls gibt es Hybridlösungen, bei denen zum einen lokale Controller für lokale Entscheidungen, als auch globale zentrale Controller für weiterreichende Entscheidungen kontaktiert werden.
-		\end{itemize}
-		\item Southbound-API
-		\begin{itemize}
-			\item Die Kommunikation zwischen Gerät und Controller wird auch als „Southbound Communication“ bezeichnet. In OpenFlow erfolgt diese mit TLS verschlüsselt.
-		\end{itemize}
-		\item Northbound-API
-		\begin{itemize}
-			\item Die Kommunikation von Controller mit externen Anwendungen  wird auch als „Northbound Communication“ bezeichnet. Die Schnittstelle wird ebenfalls für Controller-Controller Kommunikation genutzt.
-		\end{itemize}
-		\item Standardarisierung
+		\begin{figure}
+	\centering
+	\includegraphics[width=0.95\linewidth]{openflow-paket-incoming}
+	\caption{Eingehendes Paket bei OpenFlow}
+	\label{fig:openflow-paket-incoming}
+\end{figure}
+		\subsection{Controller}
+Das größte Bedenken bei ausgelagerten Controllern ist, dass die Performance und Skalierbarkeit darunter leidet. Aktuelle Tests mit den OpenFlow Controllern zeigen, dass diese durchaus bei großen Netzwerken mit mindestens 50000 neuen Flow-Requests pro Sekunde zurechtkommen. Es gibt bereits hoch-skalierbare Controller (NOX-MT) [1] die acht Kerne nutzen und so 1,6 Millionen Flow-Requests pro Sekunde bei sehr geringer Latenz verarbeiten können. Es können weiterhin mehrere Conbtroller genutzt werden, um zum einen die Performance, als auch die Ausfallsicherheit, was bei einem zentralen System von großer Bedeutung ist, zu verbessern. Es gibt auch dezentralisierte Controller, wie zum Beispiel Onix und HyperFlow, dort werden logisch zentrale Controller aus physikalisch dezentralen Controllern erstellt. Ebenfalls gibt es Hybridlösungen, bei denen zum einen lokale Controller für lokale Entscheidungen, als auch globale zentrale Controller für weiterreichende Entscheidungen kontaktiert werden.
+		\subsection{Southbound-API}
+Die Kommunikation zwischen Gerät und Controller wird auch als „Southbound Communication“ bezeichnet. In OpenFlow erfolgt diese mit TLS verschlüsselt.
+		\subsection{Northbound-API}
+Die Kommunikation von Controller mit externen Anwendungen  wird auch als „Northbound Communication“ bezeichnet. Die Schnittstelle wird ebenfalls für Controller-Controller Kommunikation genutzt.
+		\subsection{Standardarisierung}
 		\begin{itemize}
 			\item Die IETF hat an Standardisierungen für ForCES im Bezug zu Protokollen sowie Mechanismen und Schnittstellen gearbeitet.
 			\item Die Open Network Foundation (ONF) hat an der Standardarisierung von OpenFlow gearbeitet.
 		\end{itemize}
-	\end{itemize}
 
-Fig 1
+
 
 \section{SDN Anwendungen}
-\begin{itemize}
-	\item Enterprise Netzwerke
+	\subsection{Enterprise Netzwerke}
 	Große Unternehmen haben sehr große Netzwerke die ein hohes Maß an Sicherheit verlangen. SDN können genutzt werden um Firewalls, Loadbalancer, NATs sowie Netzwerk ACLs zu ersetzen. Durch diese Umstellung fallen fast alle sogenannten „Middleboxes“ weg, was zu einer deutlichen Vereinfachung der Konfiguration sowie des Verwaltungsaufwandes führt.
-	\item Rechenzentren
-	Die Netzwerke in Rechenzentren sind oft überdimensioniert um einem hohen Peak an Anforderungen standzuhalten. Daraus resultiert, dass diese im Allgemeinen nicht alle Ressourcen ausnutzen. In solchen großen Rechenzentren spielt der Aspekt des Stromverbrauchs eine große Rolle, hier kann SDN helfen die Kosten zu reduzieren. Durch das Finden eines optimalen Netzwerkteils der für den aktuellen Bedarf ausreicht und das Ausschalten der nicht benötigten Geräte wird bis zu 60% an Energie gespart. Allerdings hat SDN auch Performanceeinbußen bei reinen high-performance Netzwerken, was durch das Ständige auslagern von Anfragen an den Controller zustande kommt. Im Gegenzug wurden weitere Frameworks vorgestellt, die einem solchen Verhalten, durch die Verlagerung der meisten Flows zurück in den Switch, entgegenwirken. Ein praktisches Beispiel für den Einsatz von OpenFlow verbundenen Rechenzentren wurde 2012 von Google beim Open Network Summit vorgestellt, hierbei liefen viele Links bei annährend 100% Auslastung.
-	\item Heim- und Kleinbetriebe
+	\subsection{Rechenzentren}
+	Die Netzwerke in Rechenzentren sind oft überdimensioniert um einem hohen Peak an Anforderungen standzuhalten. Daraus resultiert, dass diese im Allgemeinen nicht alle Ressourcen ausnutzen. In solchen großen Rechenzentren spielt der Aspekt des Stromverbrauchs eine große Rolle, hier kann SDN helfen die Kosten zu reduzieren. Durch das Finden eines optimalen Netzwerkteils der für den aktuellen Bedarf ausreicht und das Ausschalten der nicht benötigten Geräte wird bis zu 60\% an Energie gespart. Allerdings hat SDN auch Performanceeinbußen bei reinen high-performance Netzwerken, was durch das Ständige auslagern von Anfragen an den Controller zustande kommt. Im Gegenzug wurden weitere Frameworks vorgestellt, die einem solchen Verhalten, durch die Verlagerung der meisten Flows zurück in den Switch, entgegenwirken. Ein praktisches Beispiel für den Einsatz von OpenFlow verbundenen Rechenzentren wurde 2012 von Google beim Open Network Summit vorgestellt, hierbei liefen viele Links bei annährend 100\% Auslastung.
+	\subsection{Heim- und Kleinbetriebe}
 	Gerade durch die niedrigen Kosten von Netzwerkgeräten haben viele kleine Firmen bereits ein relativ komplexes Netzwerk. Um nicht durch Malware verseucht zu werden spielt auch die Sicherheit eine große Rolle und eine Änderung der Konfiguration des Netzes sollte keine Ausfälle verursachen. Oft ist es auch nicht möglich in jedem Büro einen Netzwerkadministrator zu haben. Hier könnte ein SDN, durch remote verwalteten Switche und Verteiltes Monitoring zur Erkennung von Sicherheitsproblemen, helfen.
-\end{itemize}
 
 \section{Zukunft}
 \begin{itemize}
@@ -281,203 +240,24 @@ Fig 1
 \section{Zusammenfassung}
 
 
-\begin{figure}
-	\centering
-	\begin{subfigure}[t]{.3\linewidth}
-		\includegraphics[width=.95\linewidth]{F1}
-		\caption{Funk}
-		\label{fig:sub1}
-	\end{subfigure}%
-	\hfill
-	\begin{subfigure}[t]{.3\linewidth}
-		\includegraphics[width=.95\linewidth]{F2}
-		\caption{Start}
-		\label{fig:sub2}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[t]{.3\linewidth}
-		\includegraphics[width=.95\linewidth]{F3}
-		\caption{Sonnenaufgang}
-		\label{fig:sub3}
-	\end{subfigure}%
-	\caption{Paragliding an der Wasserkuppe}
-	\label{fig:paragliding}
-\end{figure}
-	
-	\vspace{1cm}
-	
-	Abbildung \ref{fig:sub1} zeigt, ...
-	
-	
-	\vspace{1cm}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-\vspace{0.5cm}
 
-Eine Studie von \citet{Hofstede2014} zeigt, dass....
+blabla todo
 
-\begin{lstlisting}[language=Java, caption={Matrix},label=alg_euklid,style=eclipse-java,moreemph={[2]out}]
-public class Array {
-	
-	public static void main(String[] args) {
-		int [][] primes = {{2,3,5}, {7,11,13}};
-		
-		for (int i = 0; i < primes.length; i++) {
-			for (int j = 0; j < primes[i].length; j++) {
-				System.out.print(primes[i][j]+" ");
-			}
-			System.out.println();
-		}
-	}
-}
-\end{lstlisting}
 
-\subsection{Abschnitt}
 
-	\blindtext
-	
-	\vspace{1cm}
-	Der Algorithmus in Listing \ref{alg_euklid} zeigt, ...
-		\vspace{1cm}
-	
-	\begin{table}[!t]
-		\centering
-		\renewcommand{\arraystretch}{1.3}
-			\caption{Overview of exchange protocols and formats \cite{Steinberger2015}}
-			\label{table_exchangeprotocols}
-			\begin{tabular}{|l|c|c|c|}
-				\hline
-				\textbf{Protocol} &  \textbf{OSI layer} & \textbf{Format} & \textbf{Security} \\
-				\hline
-				CIDF & Transport  & CISL messages  & \addstackgap{\shortstack{symmetric \\ cryptography}} \\
-				\hline
-				RID & Application & IODEF & TLS \\
-				\hline
-				XEP-0268 & Application & IODEF & TLS \\
-				\hline
-				IDXP & Application & IDMEF & TLS\\
-				\hline
-				CLT & Transport & CEE &  \addstackgap{\shortstack{provided by syslog \\(RFC $5425$)}}\\
-				\hline
-				\multirow{4}{*}{SMTP} & \multirow{4}{*}{Application} & \multirow{4}{*}{ \addstackgap{\shortstack{CAIF \\ ARF \\ x-arf}}} & None\\
-				&  &  & S/MIME\\
-				&  & & Multipart/Signed \\
-				& & &  Multipart/Encrypted \\
-				\hline
-				syslog (RFC $3164$) & Transport & syslog (RFC $3164$) & none \\
-				\hline
-				syslog (RFC $5425$) & Transport & syslog (RFC $5424$) & TLS \\
-				\hline
-			\end{tabular}
-	\end{table}	
-	
-		\blindtext
-		\vspace{1cm}
-	
-	\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}|l|c|r|}
-		\hline
-		Links & Zentriert & Rechts \\ \hline
-		L & Z &R  \\\hline
-	\end{tabular*}
-	
-		\vspace{1cm}
-	\blindtext
-	\subsection{Abschnitt}
-	
-		\vspace{1cm}
-		
-		\begin{tabularx}{\textwidth}{@{\extracolsep{\fill}}|X|X|X|}
-			\hline
-			Links & Zentriert & Rechts \\ \hline
-			L & Z &R  \\\hline
-		\end{tabularx}
-	\vspace{1cm}
-	\blindtext
-	
-	\begin{table}[!t]
-		\centering
-		\resizebox{\textwidth}{!}{
-		\renewcommand{\arraystretch}{1.3}
-		\begin{threeparttable}
-			\caption{Evaluation summary of the exchange formats}
-			\label{table_summary}
-			\centering
-			\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}
-				\hline
-				\textbf{Criterion} &  \textbf{CIDF} & \textbf{IODEF} & \textbf{CAIF} & \textbf{IDMEF} &  \textbf{ARF} &  \textbf{CEE}&  \multicolumn{2}{c|}{\textbf{X-ARF}} & \multicolumn{2}{c|}{\textbf{Syslog}}\\
-				&&&&&&& v$0.1$ & v$0.2$ & RFC $3164$ & RFC $5425$\\
-				\hline
-				Interoperability & $-$& $-$ & $-$ & $-$ & $+$ & $+$ & $+$ & $+$ & $+$ & $+$\\
-				\hline
-				Extensibility & $+$ & $+$ & $+$ & $+$ & $+$ & $+$ & $+$ & $+$ & $+$ & $+$\\
-				\hline
-			\end{tabular}
-			\begin{tablenotes}
-				\small
-				\item Legend: high ($+$), medium ($0$) and low ($-$)
-			\end{tablenotes}
-		\end{threeparttable}}
-	\end{table}
-	
-	\vspace{1cm}
-	
-	Abbildung \ref{fig:Grundkurs_Suedhang} zeigt ...
-	
-	Tabelle \ref{table_summary} zeigt ...
-	
-	\section{Kapitel}
-	
-	Lorem ipsum dolor $x^2$ sit amet, consectetuer \(x^2\) adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. 
-	
-	\begin{align}
-	x^2
-	\end{align}	
-	
-	Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. 
-	
-	\begin{align*}
-	x^2
-	\end{align*}	
-	
-	Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, 
-	
-	
-	\Blindtext
+\section{stuffs}
 	
 	\listoffigures
 	
-	\blindtext
-	\subsection{Abschnitt}
 	
 	%Tabellenverzeichnis
 	\listoftables
-	
-	\blindtext
-	
-	\section{Kapitel}
-	\Blindtext
-	
-	%Quellcodeverzeichnis
-	\lstlistoflistings
 	
 	%Glossar
 	\printglossary[style=altlist,title=Glossar]
 	\newpage
 	
+	\nocite{*}
 	%Literaturverzeichnis & Style
 	\bibliographystyle{plainnat}			
 	\bibliography{literature} 
