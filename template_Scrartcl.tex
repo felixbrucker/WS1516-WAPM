@@ -223,6 +223,41 @@ Dieses Arbeit ist wie folgt strukturiert: Teil 2 gibt eine historische Übersich
 		\item Ethane, Vorgänger von OpenFlow, ein Modell bei dem ein zentraler Controller die Richtlinien und Sicherheit eines Netzwerks verwaltet.
 	\end{itemize}
 	
+	\section{Architektur von SDN}
+	\begin{itemize}
+		\item Aktuelle SDN Architektur
+		\begin{itemize}
+			\item ForCES: Bei Forward and Control Element Separation (ForCES) wird die Control Plane in unmittelbarer Umgebung behandelt, aber nicht zwingend auf dem Gerät selbst. Diese wird auch Control Element (CE) genannt, das Element zum Weiterleiten der Daten wird als Forwarding Element (FE) bezeichnet. Der Logical Function Block (LFB) ist eine Kontrolleinheit im FE die vom CE über das ForCES Protokoll konfiguriert wird.
+			\item OpenFlow: Im Gegensatz dazu wird bei OpenFlow die Control Plan ganz vom Gerät entfernt und zentral auf einem weiteren Computer ausgeführt. Die Kommunikation von Gerät und Controller läuft über das OpenFlow Protokoll. Das Gerät besitzt eine sogenannten Flow Table (FT) in der die folgenden Felder existieren: 
+			\begin{itemize}
+				\item „match fields“, enthält Informationen zum Finden von Paketen für diese Regel
+				\item „counter“, enthält Statistiken über den jeweiligen Flow
+				\item „set of instructions“, enthält die Befehle die auf die Pakete des Flows angewendet werden sollen
+				\end{itemize}
+Beim Eintreffen eines Paketes am Gerät wird zunächst in der FT nach einem Treffer gesucht, ähnlich wie bei einer Routingtabelle, und die entsprechenden Aktionen die im „set of instructions“ Feld der Tabelle stehen werden auf das Paket angewendet.
+TODO Figur 1 zeigt den Ablauf eines einkommenden Pakets.
+		\end{itemize}
+		\item Controller
+		\begin{itemize}
+			\item Das größte Bedenken bei ausgelagerten Controllern ist, dass die Performance und Skalierbarkeit darunter leidet. Aktuelle Tests mit den OpenFlow Controllern zeigen, dass diese durchaus bei großen Netzwerken mit mindestens 50000 neuen Flow-Requests pro Sekunde zurechtkommen. Es gibt bereits hoch-skalierbare Controller (NOX-MT) [1] die acht Kerne nutzen und so 1,6 Millionen Flow-Requests pro Sekunde bei sehr geringer Latenz verarbeiten können. Es können weiterhin mehrere Conbtroller genutzt werden, um zum einen die Performance, als auch die Ausfallsicherheit, was bei einem zentralen System von großer Bedeutung ist, zu verbessern. Es gibt auch dezentralisierte Controller, wie zum Beispiel Onix und HyperFlow, dort werden logisch zentrale Controller aus physikalisch dezentralen Controllern erstellt. Ebenfalls gibt es Hybridlösungen, bei denen zum einen lokale Controller für lokale Entscheidungen, als auch globale zentrale Controller für weiterreichende Entscheidungen kontaktiert werden.
+		\end{itemize}
+		\item Southbound-API
+		\begin{itemize}
+			\item Die Kommunikation zwischen Gerät und Controller wird auch als „Southbound Communication“ bezeichnet. In OpenFlow erfolgt diese mit TLS verschlüsselt.
+		\end{itemize}
+		\item Northbound-API
+		\begin{itemize}
+			\item Die Kommunikation von Controller mit externen Anwendungen  wird auch als „Northbound Communication“ bezeichnet. Die Schnittstelle wird ebenfalls für Controller-Controller Kommunikation genutzt.
+		\end{itemize}
+		\item Standardarisierung
+		\begin{itemize}
+			\item Die IETF hat an Standardisierungen für ForCES im Bezug zu Protokollen sowie Mechanismen und Schnittstellen gearbeitet.
+			\item Die Open Network Foundation (ONF) hat an der Standardarisierung von OpenFlow gearbeitet.
+		\end{itemize}
+	\end{itemize}
+
+Fig 1
+
 \begin{figure}
 	\centering
 	\begin{subfigure}[t]{.3\linewidth}
