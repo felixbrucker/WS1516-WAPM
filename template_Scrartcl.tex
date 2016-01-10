@@ -203,80 +203,25 @@
 	Große klassische Netzwerke sind sehr aufwendig zu konfigurieren und an neue Bedingungen (qos) anzupassen. Die Idee des Software-defined-Networks (SDN), des programmierbaren Netzwerkes, löst viele dieser Probleme. Durch die lose Kopplung von Hardware, die das eigentliche Weiterleiten der Datenpakete übernimmt, und Software, die zur Steuerung der Hardware dient, wird eine Abstraktion der Hardware, ähnlich zu Hypervisoren bei der Virtualisierung von Rechnern, geschaffen und eine einfach umsetzbare Programmierung des Netzwerkes ermöglicht. In dieser Arbeit wird eine strukturierte Übersicht über Software-defined-Networks gegeben. Wir stellen die historische Entwicklung von SDN dar. Des Weiteren geben wir eine Übersicht über die Architektur von SDN und zeigen Anwendungen für SDN auf. Schließlich wird noch ein Ausblick für die Zukunft gegeben.
 	
 	\section{Einleitung}
-	Computernetzwerke bestehen traditionell aus Switchen und Routern, die den Netzwerkverkehr weiterleiten, und sonstigen Geräten wie z.B. Firewalls, die lediglich Netzwerkverkehr verändern in dem z.B. bestimmter Verkehr geblockt wird oder bestimmte qos Regeln angewendet werden. Bei solchen Netzen ist der Konfigurationsaufwand der Administratoren sehr hoch, da viele Aufgaben manuell und womöglich noch pro Gerät durchgeführt werden müssen. Auch das „Übersetzen“ von komplexen Anforderungen in maschinenlesbare Befehle muss manuell gemacht werden.
-Aus dem Wunsch zu vereinfachten Netzwerkadministrationsmöglichkeiten entstand das „programmierbare Netzwerk“ oder auch Software-Defined-Network (SDN). Bei Software-defined-Networks ist die Hardware, die den Netzwerkverkehr weiterleitet, von der Software, die die Entscheidungen zum Weiterleiten trifft, getrennt. Dadurch lassen sich allgemeine Schnittstellen für Entwickler definieren, die eine einfache Anpassung des Netzwerks erlauben.
-Dieses Arbeit ist wie folgt strukturiert: Teil 2 gibt eine historische Übersicht über SDN und zeigt die Entwicklung auf, Teil 3 stellt die Architektur von SDN dar, Teil 4 beschreibt Anwendungen im Bezug zu SDN und Teil 5 gibt Aussichten für die Zukunft.
+	
 
 	% Zeilenabstand auf 1.5 setzten
 	\onehalfspacing
 	
 	
-	Hier kommt die Einleitung. Ihre Überschrift kommt
-	automatisch in das Inhaltsverzeichnis.
+	Computernetzwerke bestehen traditionell aus Switchen und Routern, die den Netzwerkverkehr weiterleiten, und sonstigen Geräten wie z.B. Firewalls, die lediglich Netzwerkverkehr verändern in dem z.B. bestimmter Verkehr geblockt wird oder bestimmte qos Regeln angewendet werden. Bei solchen Netzen ist der Konfigurationsaufwand der Administratoren sehr hoch, da viele Aufgaben manuell und womöglich noch pro Gerät durchgeführt werden müssen. Auch das „Übersetzen“ von komplexen Anforderungen in maschinenlesbare Befehle muss manuell gemacht werden.
+Aus dem Wunsch zu vereinfachten Netzwerkadministrationsmöglichkeiten entstand das „programmierbare Netzwerk“ oder auch Software-Defined-Network (SDN). Bei Software-defined-Networks ist die Hardware, die den Netzwerkverkehr weiterleitet, von der Software, die die Entscheidungen zum Weiterleiten trifft, getrennt. Dadurch lassen sich allgemeine Schnittstellen für Entwickler definieren, die eine einfache Anpassung des Netzwerks erlauben.
+Dieses Arbeit ist wie folgt strukturiert: Teil 2 gibt eine historische Übersicht über SDN und zeigt die Entwicklung auf, Teil 3 stellt die Architektur von SDN dar, Teil 4 beschreibt Anwendungen im Bezug zu SDN und Teil 5 gibt Aussichten für die Zukunft.
+	\section{Historie / Entwicklung der SDN}
 	
-	\subsection{Formeln}
-		
-	Formeln sind etwas schwieriger, dennoch hier ein
-	einfaches Beispiel.  Zwei von Einsteins
-	berühmtesten Formeln lauten:
-	\begin{align}
-	E &= mc^2          \label{eq_einstein}                        \\
-	m &= \frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}
-	\end{align}
-	
-	
-	Gleichung \eqref{eq_einstein} zeigt, ...
+	Es gab einige Vorreiter des SDN die hier aufgelistet werden:
 	
 	\begin{itemize}
-		\item Stufe 1
-		\begin{itemize}
-			\item Stufe 2
-			\begin{itemize}
-				\item Stufe 3
-				\item ebenfalls Stufe 3
-			\end{itemize}
-			\item ebenfalls Stufe 2
-		\end{itemize}
-		\item ebenfalls Stufe 1
+		\item General Switch Management Protocol (GSMP), ein von der IETF 1996 spezifiziertes Protokoll zur einfachen Verwaltung von Switchports, Anforderungskonfigurationen, Anforderungsstatistiken etc.
+		\item Active Networking, die Idee von programmierbaren Switchen durch versenden von Programmiercode an den Switch.
+		\item NETCONF, ein 2006 von der IETF vorgestelltes Protokoll zur Verwaltung von Netzwerkgeräten.
+		\item Ethane, Vorgänger von OpenFlow, ein Modell bei dem ein zentraler Controller die Richtlinien und Sicherheit eines Netzwerks verwaltet.
 	\end{itemize}
-	
-		
-	\begin{enumerate}
-		\item Stufe 1
-		\begin{enumerate}
-			\item Stufe 2
-			\begin{enumerate}
-				\item Stufe 3
-				\item ebenfalls Stufe 3
-			\end{enumerate}
-			\item ebenfalls Stufe 2
-		\end{enumerate}
-		\item ebenfalls Stufe 1
-	\end{enumerate}
-	
-	
-	
-	\begin{enumerate}[label=\emph{\arabic*)}]
-		\item Stufe 1
-		\begin{enumerate}[label=\emph{\alph*)}]
-			\item Stufe 2
-			\begin{enumerate}[label=\emph{\roman*)}]
-				\item Stufe 3
-				\item ebenfalls Stufe 3
-			\end{enumerate}
-			\item ebenfalls Stufe 2
-		\end{enumerate}
-		\item ebenfalls Stufe 1
-	\end{enumerate}
-	\Blindtext
-\begin{figure}
-	\centering
-	\includegraphics[width=0.95\linewidth]{Grundkurs_Suedhang}
-	\caption{Paragliding an der Wasserkuppe}
-	\label{fig:Grundkurs_Suedhang}
-\end{figure}
-
-
 	
 \begin{figure}
 	\centering
