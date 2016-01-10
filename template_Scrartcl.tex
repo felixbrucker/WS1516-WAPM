@@ -82,9 +82,15 @@
 \newacronym{gsmp}{GSMP}{General Switch Management Protocol}
 \newacronym{ietf}{IETF}{Internet Engineering Task Force}
 \newacronym{ForCES}{Forward and Control Element Separation}
-\newacronym{qos}{QoS}{Quality of Service}
-\newacronym{qos}{QoS}{Quality of Service}
-\newacronym{qos}{QoS}{Quality of Service}
+\newacronym{CE}{Control Element}
+\newacronym{FE}{Forwarding Element}
+\newacronym{ONF}{Open Network Foundation}
+\newacronym{acl}{ACL}{Access Control List}
+\newacronym{AS}{Autonomous System}
+\newacronym{mpls}{MPLS}{Multi Protocol Label Switching}
+\newacronym{bgp}{BGP}{Border Gateway Protocol}
+\newacronym{vm}{VM}{Virtuelle Maschine}
+\newacronym{nat}{NAT}{Network Address Translation}
 
 \newcommand*{\myglossaryindent}{0cm}
 
@@ -101,7 +107,7 @@
 
 
 \title{Software-defined-Networking}
-\author{Felix Brucker und Sebastian}
+\author{Felix Brucker}
 \date{\today}
 
 
@@ -182,7 +188,7 @@ TODO Figur 1 zeigt den Ablauf eines einkommenden Pakets.
 	\label{fig:openflow-paket-incoming}
 \end{figure}
 		\subsection{Controller}
-Das größte Bedenken bei ausgelagerten Controllern ist, dass die Performance und Skalierbarkeit darunter leidet. Aktuelle Tests mit den OpenFlow Controllern zeigen, dass diese durchaus bei großen Netzwerken mit mindestens 50000 neuen Flow-Requests pro Sekunde zurechtkommen. Es gibt bereits hoch-skalierbare Controller (NOX-MT) [1] die acht Kerne nutzen und so 1,6 Millionen Flow-Requests pro Sekunde bei sehr geringer Latenz verarbeiten können. Es können weiterhin mehrere Conbtroller genutzt werden, um zum einen die Performance, als auch die Ausfallsicherheit, was bei einem zentralen System von großer Bedeutung ist, zu verbessern. Es gibt auch dezentralisierte Controller, wie zum Beispiel Onix und HyperFlow, dort werden logisch zentrale Controller aus physikalisch dezentralen Controllern erstellt. Ebenfalls gibt es Hybridlösungen, bei denen zum einen lokale Controller für lokale Entscheidungen, als auch globale zentrale Controller für weiterreichende Entscheidungen kontaktiert werden.
+Das größte Bedenken bei ausgelagerten Controllern ist, dass die Performance und Skalierbarkeit darunter leidet. Aktuelle Tests mit den OpenFlow Controllern zeigen, dass diese durchaus bei großen Netzwerken mit mindestens 50000 neuen Flow-Requests pro Sekunde zurechtkommen. Es gibt bereits hoch-skalierbare Controller (NOX-MT) [1] die acht Kerne nutzen und so 1,6 Millionen Flow-Requests pro Sekunde bei sehr geringer Latenz verarbeiten können. Es können weiterhin mehrere Controller genutzt werden, um zum einen die Performance, als auch die Ausfallsicherheit, was bei einem zentralen System von großer Bedeutung ist, zu verbessern. Es gibt auch dezentralisierte Controller, wie zum Beispiel Onix und HyperFlow, dort werden logisch zentrale Controller aus physikalisch dezentralen Controllern erstellt. Ebenfalls gibt es Hybridlösungen, bei denen zum einen lokale Controller für lokale Entscheidungen, als auch globale zentrale Controller für weiterreichende Entscheidungen kontaktiert werden.
 		\subsection{Southbound-API}
 Die Kommunikation zwischen Gerät und Controller wird auch als „Southbound Communication“ bezeichnet. In OpenFlow erfolgt diese mit TLS verschlüsselt.
 		\subsection{Northbound-API}
@@ -208,7 +214,7 @@ Die Kommunikation von Controller mit externen Anwendungen  wird auch als „Nort
 	\item Controller und Switch
 	SDN haben Skalierungs-, Performance- und Sicherheitsherausforderungen, welche bereits durch Forschungsarbeiten aufgearbeitet und minimiert werden. Physikalisch dezentrale aber logisch zentrale Controller erweisen sich als wesentlich robuster und besser skalierbar als ein zentraler Controller, Beispiele solcher Controller sind Onix, Kando und HyperFlow.
 	\item Das Internet mit SDN
-	Die Natur eines zentralen Controllers widerspricht der dezentralen Struktur des Internets, allerdings ist eine logisch zentrale, aber physikalisch dezentrale Struktur der beteiligten „Autonomous Systems“ (AS) denkbar. Es gibt bereits ein paar Versuche dieser Idee die auf „Multi protocol label switching“ (MPLS) basieren und Aufgaben an Geräte innerhalb des Bereichs oder außerhalb des Bereichs weitergeben. Ein weiterer Ansatz nutzt NOX und OpenFlow  um BGP ähnliche Funktionalität für das Routing innerhalb eines AS nutzbar zu machen.
+	Die Natur eines zentralen Controllers widerspricht der dezentralen Struktur des Internets, allerdings ist eine logisch zentrale, aber physikalisch dezentrale Struktur der beteiligten „Autonomous Systems“ (AS) denkbar. Es gibt bereits ein paar Versuche dieser Idee die auf „Multi Protocol Label Switching“ (MPLS) basieren und Aufgaben an Geräte innerhalb des Bereichs oder außerhalb des Bereichs weitergeben. Ein weiterer Ansatz nutzt NOX und OpenFlow  um BGP ähnliche Funktionalität für das Routing innerhalb eines AS nutzbar zu machen.
 	\item Virtualisierung
 	Clouddienstleister und Virtualisierungsanbieter haben hohe Anforderungen an ihre Netzwerkinfrastruktur, schließlich müssen neue VMs oder Container innerhalb kürzester Zeit bereitgestellt werden. Ebenfalls muss ein hoch skalierbares Netzwerk-backend vorhanden sein, dass sich dynamisch den Anforderungen anpasst. Hierfür gibt es bereits Lösungen wie zum Bespiel Floodlight welches in OpenStack genutzt werden kann, oder NOX für MirageOS. LIME, ein Design zum effizienten migrieren von Virtuellen Maschinen wurde ebenfalls vorgestellt.
 \end{itemize}
